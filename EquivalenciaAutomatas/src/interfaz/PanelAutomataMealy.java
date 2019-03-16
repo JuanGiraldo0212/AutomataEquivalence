@@ -13,6 +13,7 @@ public class PanelAutomataMealy extends JPanel{
 	JTextField[][] fields;
 	JLabel[] entradas;
 	JLabel[] estados;
+	
 	public PanelAutomataMealy(Interfaz v, int row,int column,String ent) {
 		principal=v;
 		String[] nomEnt=ent.split(",");
@@ -50,6 +51,22 @@ public class PanelAutomataMealy extends JPanel{
 				}
 			}
 		}
+	}
+	
+	public String infoEstados() {
+		String infoestados ="";
+		
+		for (int i = 0; i < fields.length; i++) {
+			for (int j = 0; j < fields[i].length; j++) {
+				String[] temp = fields[i][j].getText().split(",");
+				//infoestados = ESTADO,INPUT,ESTADO-AL-QUE-SE-DIRIGE,OUTPUT
+				infoestados+=estados[i].getText()+","+entradas[j].getText()+","+temp[0]+temp[1];
+			}
+			
+		}
+		
+		
+		return infoestados;
 	}
 
 }
