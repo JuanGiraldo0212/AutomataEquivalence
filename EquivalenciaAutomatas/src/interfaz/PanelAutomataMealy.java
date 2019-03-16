@@ -13,8 +13,9 @@ public class PanelAutomataMealy extends JPanel{
 	JTextField[][] fields;
 	JLabel[] entradas;
 	JLabel[] estados;
-	public PanelAutomataMealy(Interfaz v, int row,int column) {
+	public PanelAutomataMealy(Interfaz v, int row,int column,String ent) {
 		principal=v;
+		String[] nomEnt=ent.split(",");
 		setLayout(new GridLayout(row+1, column+1));
 		fields=new JTextField[row][column+1];
 		entradas=new JLabel[column];
@@ -24,7 +25,7 @@ public class PanelAutomataMealy extends JPanel{
 				if(i!=0 || j!=0) {
 					if(i==0) {
 					
-						JLabel actual=new JLabel("X"+(j-1));;
+						JLabel actual=new JLabel(nomEnt[j-1]);;
 						actual.setPreferredSize(new Dimension(50,20));
 						entradas[j-1]=actual;
 						add(actual);

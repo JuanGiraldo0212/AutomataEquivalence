@@ -7,8 +7,9 @@ public class PanelAutomataMoore extends JPanel{
 	JTextField[][] fields;
 	JLabel[] entradas;
 	JLabel[] estados;
-	public PanelAutomataMoore(Interfaz v, int row,int column) {
+	public PanelAutomataMoore(Interfaz v, int row,int column,String entra) {
 		principal=v;
+		String[] nomEnt=entra.split(",");
 		setLayout(new GridLayout(row+1, column+2));
 		fields=new JTextField[row][column+1];
 		entradas=new JLabel[column+1];
@@ -19,10 +20,10 @@ public class PanelAutomataMoore extends JPanel{
 					if(i==0) {
 						JLabel actual;
 						if(j!=column+1) {
-							actual=new JLabel("X"+(j-1));;
+							actual=new JLabel(nomEnt[j-1]);;
 						}
 						else {
-							actual=new JLabel("S");;
+							actual=new JLabel(" ");;
 							
 						}
 						actual.setPreferredSize(new Dimension(50,20));

@@ -19,6 +19,8 @@ public class PanelEntradas extends JPanel implements ActionListener{
 	private JLabel lblEstados2;
 	private JTextField txtEstados2;
 	private JButton boton;
+	private JLabel lblEn;
+	private JTextField txtEn;
 	private JPanel aux1;
 	private JPanel aux2;
 	private JPanel aux3;
@@ -43,10 +45,15 @@ public class PanelEntradas extends JPanel implements ActionListener{
 		boton=new JButton("Generar");
 		boton.setActionCommand(INICIAR);
 		boton.addActionListener(this);
+		lblEn=new JLabel("Entradas: ");
+		txtEn= new JTextField();
+		txtEn.setPreferredSize(new Dimension(50,20));
 		aux1.add(lblAutomata);
 		aux1.add(automata);
 		aux1.add(lblEntradas);
 		aux1.add(txtEntradas);
+		aux1.add(lblEn);
+		aux1.add(txtEn);
 		add(aux1,BorderLayout.NORTH);
 		aux2.add(lblEstados1);
 		aux2.add(txtEstados1);
@@ -61,7 +68,7 @@ public class PanelEntradas extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		String comand=arg0.getActionCommand();
 		if(comand.equals(INICIAR)) {
-			principal.addAutomata((String)automata.getSelectedItem(),Integer.parseInt(txtEstados1.getText()),Integer.parseInt(txtEstados2.getText()),Integer.parseInt(txtEntradas.getText()));
+			principal.addAutomata((String)automata.getSelectedItem(),Integer.parseInt(txtEstados1.getText()),Integer.parseInt(txtEstados2.getText()),Integer.parseInt(txtEntradas.getText()),txtEn.getText());
 		}
 		boton.setEnabled(false);
 		
