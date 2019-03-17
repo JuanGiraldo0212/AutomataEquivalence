@@ -74,6 +74,7 @@ public class Interfaz extends JFrame implements ActionListener{
 		if(command.equals(COMPARAR)) {
 			
 		if(tipoMac.equals("Mealy")) equivalenciaMealy();
+		else if(tipoMac.equals("Moore")) equivalenciaMoore();
 			
 		}
 		
@@ -83,6 +84,12 @@ public class Interfaz extends JFrame implements ActionListener{
 		String infoestados1 = mealy[0].infoEstados();
 		String infoestados2 = mealy[1].infoEstados();
 		main = new Main(tipoMac, infoestados1, infoestados2);
+	}
+	public void equivalenciaMoore() {
+		String infoestados1 = moore[0].infoEstados();
+		String infoestados2 = moore[1].infoEstados();
+		main = new Main(tipoMac, infoestados1, infoestados2);
+		JOptionPane.showMessageDialog(this,main.equivalenciaMaq());
 	}
 
 }

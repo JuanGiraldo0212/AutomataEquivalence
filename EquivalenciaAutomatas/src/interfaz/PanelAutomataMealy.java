@@ -18,7 +18,7 @@ public class PanelAutomataMealy extends JPanel{
 		principal=v;
 		String[] nomEnt=ent.split(",");
 		setLayout(new GridLayout(row+1, column+1));
-		fields=new JTextField[row][column+1];
+		fields=new JTextField[row][column];
 		entradas=new JLabel[column];
 		estados=new JLabel[row];
 		for(int i=0;i<row+1;i++) {
