@@ -51,5 +51,27 @@ public class PanelAutomataMoore extends JPanel{
 			}
 		}
 	}
+	
+	public String infoEstados() {
+		String infoestados ="";
+		
+		for (int i = 0; i < fields.length; i++) {
+			String estadoInicial=estados[i].getText();
+			String salida=fields[i][fields[0].length-1].getText();
+			for (int j = 0; j < fields[i].length-1; j++) {
+				String estadoFinal = fields[i][j].getText();
+				String entrada=entradas[j].getText();
+				//infoestados = ESTADO,INPUT,ESTADO-AL-QUE-SE-DIRIGE,OUTPUT
+				if(i==fields.length-1 && j ==fields[i].length-1) infoestados+=estadoInicial+","+entrada+","+estadoFinal+","+salida;
+                else infoestados+=estadoInicial+","+entrada+","+estadoFinal+","+salida+";";
+				
+				
+			}
+			
+		}
+		
+		System.out.println(infoestados);
+		return infoestados;
+	}
 
 }
