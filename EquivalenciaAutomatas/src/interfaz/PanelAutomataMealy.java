@@ -60,7 +60,8 @@ public class PanelAutomataMealy extends JPanel{
 			for (int j = 0; j < fields[i].length; j++) {
 				String[] temp = fields[i][j].getText().split(",");
 				//infoestados = ESTADO,INPUT,ESTADO-AL-QUE-SE-DIRIGE,OUTPUT
-				infoestados+=estados[i].getText()+","+entradas[j].getText()+","+temp[0]+temp[1];
+				if(i==fields.length-1 && j ==fields[i].length-1) infoestados+=estados[i].getText()+","+entradas[j].getText()+","+temp[0]+","+temp[1];
+				else infoestados+=estados[i].getText()+","+entradas[j].getText()+","+temp[0]+","+temp[1]+";";
 			}
 			
 		}

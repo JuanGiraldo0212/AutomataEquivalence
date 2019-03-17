@@ -84,6 +84,7 @@ public class Interfaz extends JFrame implements ActionListener{
 		String infoestados1 = mealy[0].infoEstados();
 		String infoestados2 = mealy[1].infoEstados();
 		main = new Main(tipoMac, infoestados1, infoestados2);
+		main.equivalenciaMaq();
 	}
 	public void equivalenciaMoore() {
 		String infoestados1 = moore[0].infoEstados();
