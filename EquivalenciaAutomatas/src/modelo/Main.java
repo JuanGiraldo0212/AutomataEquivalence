@@ -90,37 +90,34 @@ public class Main {
 	public ArrayList<ArrayList<EstadoMealy>> reduccionParticiones(ArrayList<ArrayList<EstadoMealy>> pi){
 		ArrayList<ArrayList<EstadoMealy>> piTemp = new ArrayList<>();
 		for (ArrayList<EstadoMealy> claseEq : pi) {
-				if(claseEq.size()!=1) {
+				
+					ArrayList<EstadoMealy> claseEqNuev = new ArrayList<>();
+					ArrayList<EstadoMealy> claseEqNuev2 = new ArrayList<>();
+					EstadoMealy act = claseEq.get(0);
+					claseEqNuev.add(act);
 					
-					ArrayList<EstadoMealy> claseEqTemp = new ArrayList<>();
-					ArrayList<EstadoMealy> claseEqTemp2 = new ArrayList<>();
-					for (int i = 0; i < claseEq.size(); i++) {
-						
-						if(!chequeoClaseEstExiste(claseEq.get(i), claseEqTemp)) {
-							claseEqTemp.add(claseEq.get(i));
-							ArrayList<String> transClaseEq =claseEq.get(i).getSetStateGoingTo(); //q2,q1,q3
-							for (int j = i+1; j < claseEq.size(); j++) {
-								ArrayList<String> transClaseEq2 =claseEq.get(j).getSetStateGoingTo(); //q1,q2,q3
+							ArrayList<String> transClaseEq =act.getSetStateGoingTo(); //q2,q1
+							for (int j = 1; j < claseEq.size(); j++) {
+								ArrayList<String> transClaseEq2 =claseEq.get(j).getSetStateGoingTo(); //q1,q2
 								int count = 0;
 								for (int k = 0; k < transClaseEq2.size(); k++) {
 									if(estadosEquivalentes(pi, transClaseEq.get(k), transClaseEq2.get(k))) count++;
 								}
 								if(count == transClaseEq2.size()) {
-									claseEqTemp.add(claseEq.get(j));
-									
+									claseEqNuev.add(claseEq.get(j));
 								}else {
-									claseEqTemp2.add(claseEq.get(j));
+									claseEqNuev2.add(claseEq.get(j));
 								}
 							}
-						}
+							
 						
-					}
-					piTemp.add(claseEqTemp);
-					if(!claseEqTemp2.isEmpty()) {
+				
+					piTemp.add(claseEqNuev);
+					if(!claseEqNuev2.isEmpty()) {
 						
-						piTemp.add(claseEqTemp2);
+						piTemp.add(claseEqNuev2);
 					}
-				}
+				
 			
 		}
 		String b ="{";
@@ -178,12 +175,21 @@ public class Main {
 		
 		EstadoMealy estado1 = null;
 		EstadoMealy estado2 = null;
-		
-		for (EstadoMealy estado : sumaDirecta.getEstados()) {
-			if(estado.getNombre().equals(state1)) {
-			estado1 = estado;
-			}else if(estado.getNombre().equals(state2)) {
-			estado2 = estado;
+		if(state1.equals(state2)) {
+			for (EstadoMealy estado : sumaDirecta.getEstados()) {
+				if(estado.getNombre().equals(state1)) {
+					estado1 = estado;
+					estado2 =estado;
+				}
+			}
+		}else {
+			
+			for (EstadoMealy estado : sumaDirecta.getEstados()) {
+				if(estado.getNombre().equals(state1)) {
+					estado1 = estado;
+				}else if(estado.getNombre().equals(state2)) {
+					estado2 = estado;
+				}
 			}
 		}
 		
