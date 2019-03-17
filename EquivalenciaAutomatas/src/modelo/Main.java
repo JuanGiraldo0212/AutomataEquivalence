@@ -14,9 +14,11 @@ public class Main {
 	this.tipo=tipo;	
 		
 	if(tipo.equals("Mealy")) {
-	mealy1 = new MaquinaMealy(infoestados1);
-
-	mealy2 = new MaquinaMealy(infoestados2);
+			
+			mealy1 = new MaquinaMealy(infoestados1);
+			
+			mealy2 = new MaquinaMealy(infoestados2);
+		
 	}else {
 		
 	}
@@ -29,11 +31,7 @@ public class Main {
 		mealy2.estadosInaccesibles();
 		
 		//ARREGLO TEMPORAL QUE VERIFICA
-		String[] estados = new String[mealy1.getEstados().size()+mealy2.getEstados().size()];
 		
-		for (int i =0; i< mealy1.getEstados().size();i++) {
-			estados[i] = mealy1.getEstados().get(i).getNombre();
-		}
 		
 		for(int i =mealy1.getEstados().size(); i<mealy1.getEstados().size()+mealy2.getEstados().size();i++) {
 			
@@ -41,7 +39,6 @@ public class Main {
 				String nombrEst = mealy2.getEstados().get(i-mealy1.getEstados().size()).getNombre();
 				for(EstadoMealy estdo : mealy2.getEstados()) {
 					estdo.renombramiento(nombrEst, "q"+i);
-					estados[i]=mealy2.getEstados().get(i-mealy1.getEstados().size()).getNombre();
 				}
 			
 		}

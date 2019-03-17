@@ -70,16 +70,25 @@ public class MaquinaMealy {
 	
 	public void estadosInaccesibles() {
 		accesiblesmet(estados.get(0).getNombre());
-		
+		ArrayList<EstadoMealy> inaccesibles = new ArrayList<>();
 		for (int i = 0; i<estados.size();i++) {
 			boolean accesible = false;
-			for(String estadoAcces: accesibles) {
-			if(estados.get(i).getNombre().equals(estadoAcces)) accesible =true;
+			for(int j = 0; j<accesibles.size();j++) {
+			if(estados.get(i).getNombre().equals(accesibles.get(j))) {
+				accesible =true;
+				accesibles.remove(accesibles.get(j));
+			}
 			}
 			
 			if(!accesible) {
-			estados.remove(estados.get(i));
+			
+				inaccesibles.add(estados.get(i));
+			
 			}
+		}
+		
+		for (int i = 0; i < inaccesibles.size(); i++) {
+			estados.remove(inaccesibles.get(i));
 		}
 	}
 	
