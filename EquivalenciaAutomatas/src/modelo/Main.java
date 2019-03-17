@@ -36,17 +36,14 @@ public class Main {
 		}
 		
 		for(int i =mealy1.getEstados().size(); i<mealy1.getEstados().size()+mealy2.getEstados().size();i++) {
-			//SE VERIFICA SI ES REPETIDO
-			if(!nombreRepetidoEstado(estados, mealy2.getEstados().get(i-mealy1.getEstados().size()).getNombre())) {
-				estados[i+mealy1.getEstados().size()]=mealy2.getEstados().get(i-mealy1.getEstados().size()).getNombre();
-			}
-			else {
+			
 				//SE RENOMBRA EL ESTADO REPETIDO, Y SE RENOMBRA EN TODAS LAS TRANSICIONES QUE ESTE.
+				String nombrEst = mealy2.getEstados().get(i-mealy1.getEstados().size()).getNombre();
 				for(EstadoMealy estdo : mealy2.getEstados()) {
-					estdo.renombramiento(mealy2.getEstados().get(i-mealy1.getEstados().size()).getNombre(), "q"+i);
+					estdo.renombramiento(nombrEst, "q"+i);
 					estados[i]=mealy2.getEstados().get(i-mealy1.getEstados().size()).getNombre();
 				}
-			}
+			
 		}
 		
 		//Suma Directa de las dos maquinas una vez renombrados sus estados.
@@ -102,19 +99,21 @@ public class Main {
 					ArrayList<EstadoMealy> claseEqTemp2 = new ArrayList<>();
 					for (int i = 0; i < claseEq.size(); i++) {
 						
-						claseEqTemp.add(claseEq.get(i));
-						ArrayList<String> transClaseEq =claseEq.get(i).getSetStateGoingTo(); //q2,q1,q3
-						for (int j = i+1; j < claseEq.size(); j++) {
-							ArrayList<String> transClaseEq2 =claseEq.get(j).getSetStateGoingTo(); //q1,q2,q3
-							int count = 0;
-							for (int k = 0; k < transClaseEq2.size(); k++) {
-								if(estadosEquivalentes(pi, transClaseEq.get(k), transClaseEq2.get(k))) count++;
-							}
-							if(count == transClaseEq2.size()) {
-								claseEqTemp.add(claseEq.get(j));
-								
-							}else {
-								claseEqTemp2.add(claseEq.get(j));
+						if(!chequeoClaseEstExiste(claseEq.get(i), claseEqTemp)) {
+							claseEqTemp.add(claseEq.get(i));
+							ArrayList<String> transClaseEq =claseEq.get(i).getSetStateGoingTo(); //q2,q1,q3
+							for (int j = i+1; j < claseEq.size(); j++) {
+								ArrayList<String> transClaseEq2 =claseEq.get(j).getSetStateGoingTo(); //q1,q2,q3
+								int count = 0;
+								for (int k = 0; k < transClaseEq2.size(); k++) {
+									if(estadosEquivalentes(pi, transClaseEq.get(k), transClaseEq2.get(k))) count++;
+								}
+								if(count == transClaseEq2.size()) {
+									claseEqTemp.add(claseEq.get(j));
+									
+								}else {
+									claseEqTemp2.add(claseEq.get(j));
+								}
 							}
 						}
 						
@@ -146,12 +145,12 @@ public class Main {
 		
 	}
 	
-	public boolean chequeoParticionEstExiste(EstadoMealy state, ArrayList<ArrayList<EstadoMealy>> piTemp) {
+	public boolean chequeoClaseEstExiste(EstadoMealy state, ArrayList<EstadoMealy> claseEq) {
 		
 		boolean check = false;
 		
-		for (ArrayList<EstadoMealy> list : piTemp) {
-			if(list.contains(state))check=true;
+		for (EstadoMealy st : claseEq) {
+			if(st.getNombre().equals(state.getNombre()))check=true;
 		}
 		
 		return check;
@@ -159,19 +158,21 @@ public class Main {
 	}
 	
 	public boolean particionEquivalente(ArrayList<ArrayList<EstadoMealy>> pi,ArrayList<ArrayList<EstadoMealy>> piTemp) {
-		boolean partEq = true;
 		
-		for (int i = 0; i < pi.size(); i++) {
-			ArrayList<EstadoMealy> act1 = pi.get(i);
-			ArrayList<EstadoMealy> act2 = piTemp.get(i);
-			for (int j = 0; j < act1.size() && partEq; j++) {
-				if(!act1.get(j).equals(act2.get(j))) {
-					partEq = false;
-				}
-			}
-		}
+		boolean same=true;
+        if(pi.size()==piTemp.size()) {
+
+            for(int i=0;i<pi.size();i++) {
+                if(!pi.get(i).equals(piTemp.get(i))) {
+                    same=false;
+                }
+            }
+        }
+        else {
+            same=false;
+        }
+        return same;
 		
-		return partEq;
 	}
 	
 	public boolean estadosEquivalentes(ArrayList<ArrayList<EstadoMealy>> pi, String state1, String state2) {

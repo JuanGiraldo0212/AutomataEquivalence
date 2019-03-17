@@ -34,12 +34,11 @@ public class EstadoMealy {
 	
 	public ArrayList<String> getSetOutputs() {
 		ArrayList<String> outputs = new ArrayList<String>();
-		int indice = 0;
 		for(String transi: trans) {
 		String transiArr[] = transi.split(",");
 		//INPUT,OUTPUT
 		outputs.add(transiArr[0]+","+transiArr[2]);
-		indice++;
+		
 		}
 	
 		return outputs;
