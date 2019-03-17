@@ -6,8 +6,11 @@ public class MaquinaMealy {
 
 	private ArrayList<EstadoMealy> estados;
 	private ArrayList<String> accesibles= new ArrayList<>();
+	private EstadoMealy inicial;
 	
 	public MaquinaMealy(String infoestados) {
+	
+	estados = new ArrayList<>();
 	
 	String[] estadosS =infoestados.split(";");
 	
@@ -29,6 +32,18 @@ public class MaquinaMealy {
 			
 		}
 	  }
+	}
+	public MaquinaMealy(ArrayList<EstadoMealy> estadosM1,ArrayList<EstadoMealy> estadosM2) {
+		
+		
+	estados = new ArrayList<>();
+	for (EstadoMealy estadoMealy : estadosM1) {
+		estados.add(estadoMealy);
+	}
+	for (EstadoMealy estadoMealy : estadosM2) {
+		estados.add(estadoMealy);
+	}
+	
 	}
 	
 	public EstadoMealy estadoExiste(String nombre) {
@@ -54,21 +69,21 @@ public class MaquinaMealy {
 	
 	
 	public void estadosInaccesibles() {
-		ArrayList<String> acces = accesiblesmet(estados.get(0).getNombre());
+		accesiblesmet(estados.get(0).getNombre());
 		
-		for (EstadoMealy estado : estados) {
+		for (int i = 0; i<estados.size();i++) {
 			boolean accesible = false;
-			for(String estadoAcces: acces) {
-			if(estado.getNombre().equals(estadoAcces)) accesible =true;
+			for(String estadoAcces: accesibles) {
+			if(estados.get(i).getNombre().equals(estadoAcces)) accesible =true;
 			}
 			
 			if(!accesible) {
-			estados.remove(estado);
+			estados.remove(estados.get(i));
 			}
 		}
 	}
 	
-	public ArrayList<String> accesiblesmet(String estado) {
+	public void accesiblesmet(String estado) {
 	 
 	EstadoMealy actual = null;
 	 for(EstadoMealy est: estados) {
@@ -78,15 +93,30 @@ public class MaquinaMealy {
 	 }
 	 if(actual!=null) {
 		 
-		 if(!accesibles.contains(actual.getNombre())) accesibles.add(actual.getNombre());
-		 for(int i = 0; i<actual.getTrans().size();i++) {
-			 String[] transic = actual.getTrans().get(i).split(",");
-			 String nombreEst = transic[1];
-			 accesiblesmet(nombreEst);
+		 if(!accesibles.contains(actual.getNombre())) {
+			 accesibles.add(actual.getNombre());
+			 for(int i = 0; i<actual.getTrans().size();i++) {
+				 String[] transic = actual.getTrans().get(i).split(","); //0,B,0
+				 String nombreEst = transic[1];
+				 accesiblesmet(nombreEst);
+			 }
 		 }
 		 
+		 
 	 }
-	 return accesibles;
+	
 		
 	}
+	public EstadoMealy getInicial() {
+		for (EstadoMealy estado : estados) {
+			if(estado.isInicial()) return estado;
+		}
+		
+		return null;
+	}
+	public void setInicial(EstadoMealy inicial) {
+		this.inicial = inicial;
+	}
+	
+	
 }
