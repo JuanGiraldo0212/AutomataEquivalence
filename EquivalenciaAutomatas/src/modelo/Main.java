@@ -15,6 +15,8 @@ public class Main {
 	private MaquinaMoore sumaDirectaMoore;
 	private MaquinaMealy sumaDirecta;
 	
+	
+	
 	public Main(String tipo, String infoestados1, String infoestados2)  {
 
 	this.tipo=tipo;	
@@ -67,6 +69,8 @@ public class Main {
 		//Algoritmo de particion
 		ArrayList<ArrayList<EstadoMealy>> pfinal = reduccionParticiones(p1);
 		
+		//Revisa a traves del metodo las condiciones en las cuales los estados iniciales deben estar en una misma particion, y que cada uno
+		//de los estados de cada maquina pertenezca al menos a alguna partición.
 		if(verificacionEquivalenciaMealy(pfinal)) {
 			equiv="Las maquinas de Mealy son equivalentes";
 		}else {
@@ -145,7 +149,11 @@ public class Main {
 
 	    }
 	
-	
+	/**
+	 * Se encarga de revisar si las dos maquinas son equivalentes, realizando el paso de verificación sobre la partición final obtenida
+	 * @param ArrayList<ArrayList<EstadoMealy>> pfinal, la partición final obtenida en el algoritmo de particionamiento.
+	 * @return un boolean que indica si las maquinas son equivalentes o no.
+	 */
 	
 	public boolean verificacionEquivalenciaMealy(ArrayList<ArrayList<EstadoMealy>> pfinal) {
 		boolean check = false;
@@ -171,6 +179,12 @@ public class Main {
 		if(contador==2)check=true;
 		return check;
 	}
+	
+	/**
+	 * De manera recursiva realiza todas las particiones siguientes a la particion 1.
+	 * @param ArrayList<ArrayList<EstadoMealy>> pi, la partición prevía a la que se realizara en el metodo. Para la primera vez que se llama, pi es equivalente a la partición uno.
+	 * @return un ArrayList<ArrayList<EstadoMealy>> con la ultima partición posible.
+	 */
 	
 	public ArrayList<ArrayList<EstadoMealy>> reduccionParticiones(ArrayList<ArrayList<EstadoMealy>> pi){
 		ArrayList<ArrayList<EstadoMealy>> piTemp = new ArrayList<>();
@@ -253,7 +267,13 @@ public class Main {
         return same;
 		
 	}
-	
+	/**
+	 * Se encarga de revisar si dos estados son equivalentes. Es decir, que se encuentren en la clase de equivalencia
+	 * @param ArrayList<ArrayList<EstadoMealy>> pi, particion entregada en donde se hara la busqueda.
+	 * @param String state1, nombre del primer estado entregado
+	 * @param String state2, nombre del segundo estado entregado
+	 * @return equivalentes, un booleano que indica si dos estados se encuentran en la misma clase de equivalencia dada la particion.
+	 */
 	public boolean estadosEquivalentes(ArrayList<ArrayList<EstadoMealy>> pi, String state1, String state2) {
 		
 		boolean equivalentes =false;
@@ -289,6 +309,11 @@ public class Main {
 		return equivalentes;
 		
 	}
+	
+	/**
+	 * Se encarga de realizar el algoritmo para encontrar la primera partición de la maquina resultante de la suma directa.
+	 * @return un ArrayList<ArrayList<EstadoMealy>> el cual es la primera partición realizada de la maquina resultante por suma directa.
+	 */
 	
 	public ArrayList<ArrayList<EstadoMealy>> particionUno(){
 		
@@ -328,23 +353,14 @@ public class Main {
 		return p1;
 	}
 	
+	/**
+	 * Se encarga de inicializar la maquina mealy resultante por suma directa
+	 * @param estadosM1, arrayList de estados de la maquina mealy 1
+	 * @param estadosM2, arrayList de estados de la maquina mealy 2
+	 */
 	public void sumaDirectaMealy(ArrayList<EstadoMealy> estadosM1,ArrayList<EstadoMealy> estadosM2) {
 		
 	sumaDirecta = new MaquinaMealy(estadosM1, estadosM2);
-		
-	}
-	
-	public boolean nombreRepetidoEstado(String[] estados,String estadito) {
-		
-		boolean check =false;
-		if(estados.length!=0) {
-			
-			for (String estaditi : estados) {
-				if(estadito.equals(estaditi)) check = true;
-			}
-		}
-		
-		return check;
 		
 	}
 

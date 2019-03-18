@@ -8,6 +8,10 @@ public class MaquinaMealy {
 	private ArrayList<String> accesibles= new ArrayList<>();
 	private EstadoMealy inicial;
 	
+	/**
+	 * Inicializa la maquina de mealy
+	 * @param infoestados una cadena con la informacion de los estados de la maquina
+	 */
 	public MaquinaMealy(String infoestados) {
 	
 	estados = new ArrayList<>();
@@ -33,6 +37,11 @@ public class MaquinaMealy {
 		}
 	  }
 	}
+	/**
+	 * Inicializa la maquina de mealy para suma directa
+	 * @param estadosM1, lista de estados de la maquina de mealy 1
+	 * @param estadosM1, lista de estados de la maquina de mealy 2
+	 */
 	public MaquinaMealy(ArrayList<EstadoMealy> estadosM1,ArrayList<EstadoMealy> estadosM2) {
 		
 		
@@ -45,6 +54,12 @@ public class MaquinaMealy {
 	}
 	
 	}
+	
+	/**
+	 * Revisa si existe un estado con el nombre entregado por parametro
+	 * @param nombre, una cadena con el nombre de un estado.
+	 * @return EstadoMealy correspondiente al nombre entregado.
+	 */
 	
 	public EstadoMealy estadoExiste(String nombre) {
 		
@@ -67,6 +82,9 @@ public class MaquinaMealy {
 		this.estados = estados;
 	}
 	
+	/**
+	 * Se encarga de revisar y eliminar todos los estados inaccesibles de la maquina de mealy
+	 */
 	
 	public void estadosInaccesibles() {
 		accesiblesmet(estados.get(0).getNombre());
@@ -92,6 +110,11 @@ public class MaquinaMealy {
 		}
 	}
 	
+	/**
+	 * Se encarga de recorrer de manera recursiva todos los estados haciendo uso de las transiciones y partiendo desde el estado entregado por parametro.
+	 * @param estado, una cadena con el nombre de un estado con el que empezara el recorrido.
+	 */
+	
 	public void accesiblesmet(String estado) {
 	 
 	EstadoMealy actual = null;
@@ -116,6 +139,11 @@ public class MaquinaMealy {
 	
 		
 	}
+	
+	/**
+	 * Se encarga de buscar el estado inicial de la maquina mealy.
+	 * @return estado inicial de la maquina de mealy
+	 */
 	public EstadoMealy getInicial() {
 		for (EstadoMealy estado : estados) {
 			if(estado.isInicial()) return estado;
