@@ -59,7 +59,7 @@ public class Main {
 		}
 		
 		//Suma Directa de las dos maquinas una vez renombrados sus estados.
-		sumaDirecta(mealy1.getEstados(),mealy2.getEstados());
+		sumaDirectaMealy(mealy1.getEstados(),mealy2.getEstados());
 		
 		//Primera particion
 		
@@ -328,7 +328,7 @@ public class Main {
 		return p1;
 	}
 	
-	public void sumaDirecta(ArrayList<EstadoMealy> estadosM1,ArrayList<EstadoMealy> estadosM2) {
+	public void sumaDirectaMealy(ArrayList<EstadoMealy> estadosM1,ArrayList<EstadoMealy> estadosM2) {
 		
 	sumaDirecta = new MaquinaMealy(estadosM1, estadosM2);
 		
